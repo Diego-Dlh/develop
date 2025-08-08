@@ -26,7 +26,7 @@ class Prestamo(models.Model):
 
     interes = models.IntegerField(choices=interes_choices, default=0)
     meses = models.IntegerField(choices=meses_choices, default=1)
-    fecha = models.DateField(default=timezone.now, blank=True, null=True)
+    fecha = models.DateField( blank=True, null=True)
     estado = models.IntegerField(choices=ESTADO_CHOICES, default=1)
 
     def save(self, *args, **kwargs):
