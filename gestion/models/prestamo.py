@@ -1,7 +1,7 @@
+from time import timezone
 from django.db import models
 from .usuario import Usuario
 from .deudor import Deudor
-from django.utils import timezone
 
 class Prestamo(models.Model):
     ESTADO_CHOICES = (
@@ -26,7 +26,7 @@ class Prestamo(models.Model):
 
     interes = models.IntegerField(choices=interes_choices, default=0)
     meses = models.IntegerField(choices=meses_choices, default=1)
-    fecha = models.DateTimeField(default=timezone.now, blank=True, null=True)
+    fecha = models.DateField(default=timezone.now, blank=True, null=True)
     estado = models.IntegerField(choices=ESTADO_CHOICES, default=1)
 
     def save(self, *args, **kwargs):
