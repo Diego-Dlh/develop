@@ -20,7 +20,7 @@ class Prestamo(models.Model):
     )
 
     deudor = models.ForeignKey(Deudor, on_delete=models.CASCADE)
-    cobrador = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+    cobrador = models.ForeignKey(Usuario, on_delete=models.CASCADE, limit_choices_to={'rol': 2})
     monto = models.IntegerField()
     saldo_pendiente = models.IntegerField(blank=True)
 
