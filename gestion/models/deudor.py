@@ -13,7 +13,7 @@ class Deudor(models.Model):
     telefono = models.CharField(max_length=15)
     direccion = models.TextField()
     tipo = models.IntegerField(choices=TIPO_CHOICES, default=1)
-    cobrador = models.ForeignKey(Usuario, on_delete=models.CASCADE, related_name="deudores")
+    cobrador = models.ForeignKey(Usuario, related_name="deudores")
 
     def __str__(self):
         return f"{self.nombre} {self.apellido}"
