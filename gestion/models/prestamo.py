@@ -1,4 +1,3 @@
-from time import timezone
 from django.db import models
 from .usuario import Usuario
 from .deudor import Deudor
@@ -19,14 +18,23 @@ class Prestamo(models.Model):
         (2, '2 meses'),
     )
 
-    deudor = models.ForeignKey(Deudor)
-    cobrador = models.ForeignKey(Usuario, limit_choices_to={'rol': 2})
+    deudor = models.ForeignKey(
+        Deudor,
+        on_delete=models.PROTECT,            # <— antes: CASCADE
+        related_name="prestamos"
+    )
+    cobrador = models.ForeignKey(
+        Usuario,
+        on_delete=models.PROTECT,            # <— antes: CASCADE
+        limit_choices_to={'rol': 2},
+        related_name="prestamos"
+    )
     monto = models.IntegerField()
     saldo_pendiente = models.IntegerField(blank=True)
 
     interes = models.IntegerField(choices=interes_choices, default=0)
     meses = models.IntegerField(choices=meses_choices, default=1)
-    fecha = models.DateField( blank=True, null=True)
+    fecha = models.DateField(blank=True, null=True)
     estado = models.IntegerField(choices=ESTADO_CHOICES, default=1)
 
     def save(self, *args, **kwargs):
